@@ -12,8 +12,8 @@ import numpy as np
 
 
 speed_test_results = {
-    "Download Speed": "Calculating... Please be patient, this will take ~ 6 epochs to calculate",
-    "Upload Speed": "Calculating... Please be patient, this will take ~ 6 epochs to calculate"
+    "Download Speed": "Calculating... Please be patient, this will take ~ 2 epochs to calculate",
+    "Upload Speed": "Calculating... Please be patient, this will take ~ 2 epochs to calculate"
 }
 
 
@@ -134,11 +134,9 @@ def get_random_fact():
     return random.choice(facts)
 
 def get_system_stats():
-    """Collects system statistics."""
     cpu_usage = psutil.cpu_percent()
     ram = psutil.virtual_memory()
     net_io = psutil.net_io_counters()
-    disk_usage = psutil.disk_usage('/')
     gpu_usage = "N/A (If you see this, you most likely have bad drivers or AMD GPU)"
     
     try:
@@ -154,14 +152,12 @@ def get_system_stats():
         "RAM Usage": f"{ram.percent} %",
         "RAM Total": f"{ram.total / (1024 ** 3):.2f} GB",
         "RAM Used": f"{ram.used / (1024 ** 3):.2f} GB",
-        "Disk Usage": f"{disk_usage} %",
         "Network Sent": f"{net_io.bytes_sent / (1024 ** 2):.2f} MB",
         "Network Received": f"{net_io.bytes_recv / (1024 ** 2):.2f} MB",
         "GPU Usage": gpu_usage
     }
 
 def run_speed_test():
-    """Runs a speed test to measure download and upload speeds."""
     st = speedtest.Speedtest(secure=1)
     st.get_best_server() 
     st.download()  
@@ -173,7 +169,6 @@ def run_speed_test():
     }
 
 def run_speed_test_async():
-    """Run speed test in a separate thread."""
     global speed_test_results
     while True:
         try:
@@ -194,30 +189,9 @@ def get_system_uptime():
     minutes = uptime_seconds // 60
     return f"{days} days, {hours} hours, {minutes} minutes"
 
-def get_temperatures():
-    temps = {}
-    try:
-        cpu_temp = psutil.sensors_temperatures().get('coretemp', [])[0].current
-        temps["CPU Temp"] = f"{cpu_temp}°C"
-    except (AttributeError, IndexError):
-        temps["CPU Temp"] = "N/A"
-
-    try:
-        import GPUtil
-        gpus = GPUtil.getGPUs()
-        if gpus:
-            temps["GPU Temp"] = f"{gpus[0].temperature}°C"
-        else:
-            temps["GPU Temp"] = "N/A"
-    except ImportError:
-        temps["GPU Temp"] = "GPUtil not installed"
-
-    return temps
-
 
 
 def check_ollama_running():
-    """Checks if the Ollama service is running locally."""
     try:
         host = "localhost"
         port = 11434 
@@ -236,7 +210,6 @@ except ImportError:
     ollama_installed = False
 
 def analyze_performance(stats):
-    """Uses Ollama AI to analyze system performance (optional)."""
     if ollama_installed and check_ollama_running():
         prompt = f"""
         Given the following system stats:
@@ -250,14 +223,11 @@ def analyze_performance(stats):
         return "Ollama is not installed or the Ollama service is not running. Skipping performance analysis."
 
 shownnumber = 0
-print("AI will analyze only only one time on the eighth iteration, and it will update the plot every 10")
+print("AI will analyze only only once every eigth iteration")
 
 import requests
 
 def get_weather(api_key, city="New York"):
-    """
-    Fetches weather data for a given city using the WeatherAPI.
-    """
     url = f"http://api.weatherapi.com/v1/current.json?key={api_key}&q={city}"
     try:
         response = requests.get(url)
@@ -289,12 +259,12 @@ def display_dashboard():
         
         stats = get_system_stats()
         stats["System Uptime"] = get_system_uptime()
-        stats.update(get_temperatures())
 
         if shownnumber % 8 == 0:
             print('ANALYZING VIA AI... Please be patient!')
             analysis = analyze_performance(stats)
             print("AI Insights:", analysis)
+            time.sleep(45)
                 
         combined_stats = {**stats, **speed_test_results}
         
@@ -306,7 +276,7 @@ def display_dashboard():
         weather = get_weather("680ce0f09e454d61aab173209251703", "Ann Arbor")
         console.print(f"Weather: {weather}")
         
-        time.sleep(5) 
+        time.sleep(15) 
         console.clear() 
         shownnumber += 1
 
