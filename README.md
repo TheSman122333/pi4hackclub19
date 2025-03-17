@@ -1,10 +1,10 @@
-<h1>Real-Time System Monitoring Dashboard</h1>h1>
+<h1>Real-Time System Monitoring Dashboard</h1>
 
-#Overview
+<h2>Overview</h2>
 
 This Python script provides a real-time system monitoring dashboard with various system statistics, including CPU, RAM, network usage, GPU utilization, and internet speed. Additionally, it includes fun random tech facts, system uptime tracking, weather information, and an optional AI-powered performance analysis using Ollama.
 
-#Features
+<h2>Features</h2>
 
 Real-time CPU, RAM, Network, and GPU Monitoring
 
@@ -18,7 +18,7 @@ Weather Information Retrieval
 
 AI-Based Performance Analysis (Ollama Integration)
 
-#Dependencies
+<h2>Dependencies</h2>
 
 Ensure you have the following Python libraries installed before running the script:
 
@@ -28,7 +28,7 @@ If you want AI-based performance analysis, install Ollama:
 
 pip install ollama
 
-#Usage
+<h2>Usage</h2>
 
 Run the script using:
 
@@ -36,7 +36,7 @@ python script.py and Llama3.1
 
 or run the exe with Ollama running Llama3.1
 
-#System Monitoring
+<h2>System Monitoring</h2>
 
 The dashboard updates in real-time, displaying CPU, RAM, and network statistics.
 
@@ -48,7 +48,7 @@ The script performs periodic internet speed tests using the speedtest library.
 
 Download and upload speeds are updated every 30 seconds.
 
-#Weather Information
+<h2>Weather Information</h2>
 
 The script can fetch weather updates for a specified city.
 
@@ -60,7 +60,7 @@ If Ollama is installed and running, the script will analyze system stats and sug
 
 Ollama listens on port 11434, which should be active for the AI module to work.
 
-#Disclaimers
+<h2>Disclaimers</h2>
 
 If you use an AMD GPU, GPU monitoring might not work correctly.
 
@@ -70,8 +70,8 @@ Internet speed tests may take a while to compute.
 
 Weather API requires an active internet connection and a valid API key.
 
-#Contributing
+<h2>Contributing</h2>
 
 Feel free to modify and enhance this script. Pull requests are welcome!
 
-##PROTECTED BY MIT LICENSE!
+<h1>PROTECTED BY MIT LICENSE!</h1>
