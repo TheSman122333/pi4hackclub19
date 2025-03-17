@@ -138,6 +138,7 @@ def get_system_stats():
     cpu_usage = psutil.cpu_percent()
     ram = psutil.virtual_memory()
     net_io = psutil.net_io_counters()
+    disk_usage = psutil.disk_usage('/')
     gpu_usage = "N/A (If you see this, you most likely have bad drivers or AMD GPU)"
     
     try:
@@ -153,7 +154,7 @@ def get_system_stats():
         "RAM Usage": f"{ram.percent} %",
         "RAM Total": f"{ram.total / (1024 ** 3):.2f} GB",
         "RAM Used": f"{ram.used / (1024 ** 3):.2f} GB",
-        #"Disk Usage": f"{disk_usage} %",
+        "Disk Usage": f"{disk_usage} %",
         "Network Sent": f"{net_io.bytes_sent / (1024 ** 2):.2f} MB",
         "Network Received": f"{net_io.bytes_recv / (1024 ** 2):.2f} MB",
         "GPU Usage": gpu_usage
